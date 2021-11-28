@@ -475,7 +475,7 @@ public class UserProcess {
 
     private int handleClose(int fileDescr) {
         // invalid fileDescriptorTable index
-        if (fileDescr < 0 || fileDescr < 15) {
+        if (fileDescr < 0 || fileDescr > 15) {
             return -1;
         }
 
@@ -539,22 +539,22 @@ public class UserProcess {
         switch (syscall) {
             case syscallHalt:
                 return handleHalt();
-            //create
+
             case syscallCreate:
                 handleCreate(a0);
-            //open
+
             case syscallOpen:
                 handleOpen(a0);
-            //read
+
             case syscallRead:
                 handleRead(a0, a1, a2);
-            //write
+
             case syscallWrite:
                 handleWrite(a0, a1, a2);
-            //close
+
             case syscallClose:
                 handleClose(a0);
-            //unlink
+
             case syscallUnlink:
                 if (a0 < 0) {
                     return -1;
