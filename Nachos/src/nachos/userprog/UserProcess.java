@@ -489,7 +489,7 @@ public class UserProcess {
 
     private int handleClose(int fileDescr) {
         // invalid fileDescriptorTable index
-        if (fileDescr < 0 || fileDescr > 15) {
+        if (fileDescr < 0 || fileDescr > 15 || fileDescriptorTable[fileDescr] == null) {
             return -1;
         }
 
