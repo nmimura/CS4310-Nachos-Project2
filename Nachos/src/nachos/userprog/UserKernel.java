@@ -2,6 +2,7 @@ package nachos.userprog;
 
 import nachos.machine.*;
 import nachos.threads.*;
+import nachos.userprog.*;
 
 /**
  * A kernel that can support multiple user processes.
@@ -94,7 +95,7 @@ public class UserKernel extends ThreadedKernel {
 	UserProcess process = UserProcess.newUserProcess();
 	
 	String shellProgram = Machine.getShellProgramName();	
-	Lib.assertTrue(process.execute(shellProgram, new String[] {"hello"}));
+	Lib.assertTrue(process.execute(shellProgram, new String[] {"hello world"}));
 
 	KThread.currentThread().finish();
     }
