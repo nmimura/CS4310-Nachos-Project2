@@ -349,7 +349,21 @@ public class UserProcess {
     }
 
     /**
-     * Handle the create() system call.
+     * Handle the exit() system call
+     */
+    private void handleExit() {
+        for (int i = 2; i < fileDescriptorTable.length; i++) {
+            if (fileDescriptorTable[i] != null) {
+                fileDescriptorTable[i].close();
+                fileDescriptorTable[i] = null;
+            }
+        }
+        unloadSections();
+        Kernel.kernel.terminate();
+    }
+
+    /**
+     * Handle the creat() system call.
      */
     private int handleCreate(int vAddr) {
         // invalid virtual addr
@@ -537,6 +551,9 @@ public class UserProcess {
      */
     public int handleSyscall(int syscall, int a0, int a1, int a2, int a3) {
         switch (syscall) {
+            case syscallExit:
+                handleExit();
+
             case syscallHalt:
                 return handleHalt();
 
